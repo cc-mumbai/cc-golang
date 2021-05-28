@@ -29,11 +29,11 @@ func main() {
 	// => If this function returns a value, it will be an error of type Error
 
 	if err != nil {
-	  fmt.Println(err.Error())
+		fmt.Println(err.Error())
 	}
 
 	if err := someFunction(); err != nil {
-	  fmt.Println(err.Error())
+		fmt.Println(err.Error())
 	}
 
 }
