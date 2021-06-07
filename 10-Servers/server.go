@@ -37,6 +37,7 @@ func getTodos(w http.ResponseWriter, r *http.Request) {
 	err = t.Execute(w, pageVariables)
 }
 
+// Adds/Appends todos to list on form submission
 func addTodo (w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
