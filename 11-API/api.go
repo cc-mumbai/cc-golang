@@ -28,6 +28,21 @@ type AllPeople struct {
 	People []Person `json:"results"`
 }
 
+// Method!
+func (p *Person) getHomeWorld() {
+	res, err := http.Get(p.HomeWorldURL)
+	if err != nil {
+		log.Print("Error fetching HomeWorld", err)
+	}
+
+	var bytes []byte
+	if bytes, err = ioutil.ReadAll(res.Body); err != nil {
+		log.Print("Error reading response body", err)
+	}
+
+	json.Unmarshal(bytes, &p.HomeWorld)
+}
+
 func getPeople(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprint(w, "Getting people")
 	res, err := http.Get(BaseURL + "people")
@@ -49,6 +64,11 @@ func getPeople(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error parsing json", err)
 	}
 	fmt.Println(people)
+
+	for _, pers := range people.People {
+		pers.getHomeWorld()
+		fmt.Println(pers)
+	}
 }
 
 func main() {
